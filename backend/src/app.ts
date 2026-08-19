@@ -3,6 +3,8 @@ import express from "express";
 import { errorHandler } from "./middleware/error-handler.js";
 import adminRoutes from "./modules/admin/admin.routes.js";
 import authRoutes from "./modules/auth/auth.routes.js";
+import storeOwnerRoutes from "./modules/storeOwner/storeOwner.routes.js";
+import storesRoutes from "./modules/stores/stores.routes.js";
 
 const app: express.Application = express();
 
@@ -15,6 +17,8 @@ app.get("/api/health", (_req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/stores", storesRoutes);
+app.use("/api/store-owner", storeOwnerRoutes);
 
 app.use(errorHandler);
 
