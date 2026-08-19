@@ -13,6 +13,14 @@ export type AdminUser = {
   createdAt: string;
 };
 
+export type CreateUserInput = {
+  name: string;
+  email: string;
+  address: string;
+  password: string;
+  role: "admin" | "normal" | "store_owner";
+};
+
 export type GetUsersParams = {
   name?: string;
   email?: string;
