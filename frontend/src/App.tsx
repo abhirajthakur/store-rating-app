@@ -1,5 +1,7 @@
 import { Route, Routes } from "react-router";
 
+import ProtectedRoute from "./components/common/ProtectedRoute";
+
 import ChangePassword from "./pages/ChangePassword";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -20,18 +22,26 @@ function App() {
       <Route path="/" element={<Login />} />
       <Route path="/register" element={<Register />} />
 
-      <Route path="/change-password" element={<ChangePassword />} />
+      <Route element={<ProtectedRoute />}>
+        <Route path="/change-password" element={<ChangePassword />} />
+      </Route>
 
-      <Route path="/admin/dashboard" element={<AdminDashboard />} />
-      <Route path="/admin/users" element={<AdminUsers />} />
-      <Route path="/admin/users/:id" element={<UserDetails />} />
-      <Route path="/admin/stores" element={<AdminStores />} />
-      <Route path="/admin/users/add" element={<AddUser />} />
-      <Route path="/admin/stores/add" element={<AddStore />} />
+      <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/users" element={<AdminUsers />} />
+        <Route path="/admin/users/:id" element={<UserDetails />} />
+        <Route path="/admin/stores" element={<AdminStores />} />
+        <Route path="/admin/users/add" element={<AddUser />} />
+        <Route path="/admin/stores/add" element={<AddStore />} />
+      </Route>
 
-      <Route path="/stores" element={<UserStores />} />
+      <Route element={<ProtectedRoute allowedRoles={["normal"]} />}>
+        <Route path="/stores" element={<UserStores />} />
+      </Route>
 
-      <Route path="/store-owner/dashboard" element={<OwnerDashboard />} />
+      <Route element={<ProtectedRoute allowedRoles={["store_owner"]} />}>
+        <Route path="/store-owner/dashboard" element={<OwnerDashboard />} />
+      </Route>
     </Routes>
   );
 }
