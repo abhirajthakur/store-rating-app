@@ -1,6 +1,8 @@
 import type {
   CreateUserInput,
   DashboardStats,
+  GetStoresParams,
+  GetStoresResponse,
   GetUsersParams,
   GetUsersResponse,
 } from "../types/admin";
@@ -16,6 +18,12 @@ export const createUser = (data: CreateUserInput) => {
 
 export const getUsers = (params: GetUsersParams) => {
   return api.get<GetUsersResponse>("/admin/users", {
+    params,
+  });
+};
+
+export const getStores = (params: GetStoresParams) => {
+  return api.get<GetStoresResponse>("/admin/stores", {
     params,
   });
 };

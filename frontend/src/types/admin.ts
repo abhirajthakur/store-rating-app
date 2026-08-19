@@ -33,3 +33,23 @@ export type GetUsersParams = {
 export type GetUsersResponse = {
   users: AdminUser[];
 };
+
+export type AdminStore = {
+  id: string;
+  name: string;
+  email: string;
+  address: string;
+  rating: number;
+};
+
+export type GetStoresParams = {
+  name?: string;
+  email?: string;
+  address?: string;
+  sortBy?: "name" | "email" | "address" | "rating" | "createdAt";
+  sortOrder?: "asc" | "desc";
+};
+
+export type GetStoresResponse = {
+  stores: AdminStore[];
+};
