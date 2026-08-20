@@ -4,6 +4,7 @@ import type {
   DashboardStats,
   GetStoresParams,
   GetStoresResponse,
+  GetUserResponse,
   GetUsersParams,
   GetUsersResponse,
 } from "../types/admin";
@@ -21,6 +22,10 @@ export const getUsers = (params: GetUsersParams) => {
   return api.get<GetUsersResponse>("/admin/users", {
     params,
   });
+};
+
+export const getUserById = (id: string) => {
+  return api.get<GetUserResponse>(`/admin/users/${id}`);
 };
 
 export const createStore = (data: CreateStoreInput) => {

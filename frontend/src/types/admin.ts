@@ -13,6 +13,16 @@ export type AdminUser = {
   createdAt: string;
 };
 
+export type AdminUserDetail = {
+  id: string;
+  name: string;
+  email: string;
+  address: string;
+  role: "admin" | "normal" | "store_owner";
+  createdAt: string;
+  rating?: number;
+};
+
 export type CreateUserInput = {
   name: string;
   email: string;
@@ -32,6 +42,10 @@ export type GetUsersParams = {
 
 export type GetUsersResponse = {
   users: AdminUser[];
+};
+
+export type GetUserResponse = {
+  user: AdminUserDetail;
 };
 
 export type AdminStore = {
