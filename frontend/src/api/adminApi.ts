@@ -1,4 +1,5 @@
 import type {
+  CreateStoreInput,
   CreateUserInput,
   DashboardStats,
   GetStoresParams,
@@ -20,6 +21,10 @@ export const getUsers = (params: GetUsersParams) => {
   return api.get<GetUsersResponse>("/admin/users", {
     params,
   });
+};
+
+export const createStore = (data: CreateStoreInput) => {
+  return api.post("/admin/stores", data);
 };
 
 export const getStores = (params: GetStoresParams) => {

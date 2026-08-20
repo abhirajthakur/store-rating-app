@@ -42,6 +42,13 @@ export type AdminStore = {
   rating: number;
 };
 
+export type CreateStoreInput = {
+  name: string;
+  email: string;
+  address: string;
+  ownerId?: string;
+};
+
 export type GetStoresParams = {
   name?: string;
   email?: string;
