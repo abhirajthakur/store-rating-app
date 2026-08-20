@@ -43,11 +43,9 @@ function Stores() {
 
     try {
       const response = await getStores(params);
-
       setStores(response.data.stores);
     } catch (error) {
       const axiosError = error as AxiosError<ApiError>;
-
       setError(axiosError.response?.data?.message || "Unable to load stores.");
     } finally {
       setIsLoading(false);
@@ -55,6 +53,7 @@ function Stores() {
   };
 
   useEffect(() => {
+    // Debouncing
     const timeoutId = window.setTimeout(() => {
       void loadStores();
     }, 300);

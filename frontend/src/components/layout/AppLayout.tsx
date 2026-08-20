@@ -1,68 +1,67 @@
 import { NavLink, Outlet, useNavigate } from "react-router";
-
 import { useAuth } from "../../context/useAuth";
+import type { UserRole } from "../../types/user";
 
 type NavigationItem = {
   label: string;
   path: string;
 };
 
+const navigationItemsByRole: Record<UserRole, NavigationItem[]> = {
+  admin: [
+    {
+      label: "Dashboard",
+      path: "/admin/dashboard",
+    },
+    {
+      label: "Users",
+      path: "/admin/users",
+    },
+    {
+      label: "Stores",
+      path: "/admin/stores",
+    },
+    {
+      label: "Change Password",
+      path: "/change-password",
+    },
+  ],
+
+  normal: [
+    {
+      label: "Stores",
+      path: "/stores",
+    },
+    {
+      label: "Change Password",
+      path: "/change-password",
+    },
+  ],
+
+  store_owner: [
+    {
+      label: "Dashboard",
+      path: "/store-owner/dashboard",
+    },
+    {
+      label: "Change Password",
+      path: "/change-password",
+    },
+  ],
+};
+
 function AppLayout() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  const getNavigationItems = (): NavigationItem[] => {
-    if (user?.role === "admin") {
-      return [
-        {
-          label: "Dashboard",
-          path: "/admin/dashboard",
-        },
-        {
-          label: "Users",
-          path: "/admin/users",
-        },
-        {
-          label: "Stores",
-          path: "/admin/stores",
-        },
-        {
-          label: "Change Password",
-          path: "/change-password",
-        },
-      ];
-    }
-
-    if (user?.role === "normal") {
-      return [
-        {
-          label: "Stores",
-          path: "/stores",
-        },
-        {
-          label: "Change Password",
-          path: "/change-password",
-        },
-      ];
-    }
-
-    return [
-      {
-        label: "Dashboard",
-        path: "/store-owner/dashboard",
-      },
-      {
-        label: "Change Password",
-        path: "/change-password",
-      },
-    ];
-  };
-
-  const navigationItems = getNavigationItems();
+  const navigationItems = user ? navigationItemsByRole[user.role] : [];
 
   const handleLogout = () => {
     logout();
-    navigate("/", { replace: true });
+
+    navigate("/", {
+      replace: true,
+    });
   };
 
   return (
